@@ -1,12 +1,22 @@
 package br.com.alura.screenmatch.modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo implements Comparable<Titulo> {
+    @SerializedName("Title")
     private String nome;
+    @SerializedName("Year")
     private int anoDeLancamento;
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
     int duracao;
+
+    public Titulo(TituloOmdb t) {
+        this.nome = t.title();
+        this.anoDeLancamento = Integer.valueOf(t.year());
+        this.duracao = Integer.valueOf(t.runtime().substring(0, 2));
+    }
 
     public int getTotalDeAvaliacoes(){
         return totalDeAvaliacoes;
@@ -66,5 +76,12 @@ public class Titulo implements Comparable<Titulo> {
     @Override
     public int compareTo(Titulo t) {
         return this.getNome().compareTo(t.getNome());
+    }
+
+    @Override
+    public String toString() {
+        return "Nome= '" + nome + '\'' +
+                ", Ano de Lançamento= " + anoDeLancamento +
+                ", Tempo de Duração= " + duracao;
     }
 }
